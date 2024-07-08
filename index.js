@@ -14,6 +14,7 @@ const express = require("express");
 const SteamAuth = require("node-steam-openid");
 const axios = require("axios");
 const dotenv = require("dotenv");
+const cors = require("cors");
 
 // Load environment variables from .env file
 dotenv.config();
@@ -29,6 +30,7 @@ const steam = new SteamAuth({
   returnUrl: "https://test123-six-kappa.vercel.app/auth/steam/authenticate", // Your return route
   apiKey: process.env.STEAM_API_KEY,
 });
+app.use(cors());
 app.get('/', (req, res) => {
   res.send('products api running new deploy');
 });
