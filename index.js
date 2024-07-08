@@ -25,7 +25,7 @@ const PORT = process.env.PORT || 5000;
 // const apiKey = process.env.STEAM_API_KEY;
 // console.log(apiKey);
 const steam = new SteamAuth({
-  realm: "http://localhost:5000", // Replace with your actual frontend URL
+  realm: "https://ezskin.vercel.app/", // Replace with your actual frontend URL
   returnUrl: "https://test123-six-kappa.vercel.app/auth/steam/authenticate", // Your return route
   apiKey: process.env.STEAM_API_KEY,
 });
