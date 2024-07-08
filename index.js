@@ -62,7 +62,7 @@ app.get("/auth/steam/authenticate", async (req, res) => {
 
     // Redirect to frontend with user info
     res.redirect(
-      `http://localhost:3000/?page.tsx&steamID64=${steamID64}&username=${username}`,
+      `https://ezskin.vercel.app/?page.tsx&steamID64=${steamID64}&username=${username}`,
     );
   } catch (error) {
     console.error("Error authenticating with Steam:", error.message);
