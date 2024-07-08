@@ -1,43 +1,30 @@
-// const express = require("express");
-// const SteamAuth = require("node-steam-openid");
-// const axios = require("axios");
-
-// const app = express();
-// const PORT = process.env.PORT || 5000 ;
-// console.log(process.env.PORT);
-// const steam = new SteamAuth({
-//   realm: "http://localhost:5000", // Replace with your actual frontend URL
-//   returnUrl: "http://localhost:5000/auth/steam/authenticate", // Your return route
-//   apiKey: "1E0DDC6BB18FAAAE89D3D06505AC82A1", // Steam API key
-// });
 const express = require("express");
 const SteamAuth = require("node-steam-openid");
-const axios = require("axios");
 const dotenv = require("dotenv");
 const cors = require("cors");
 
 // Load environment variables from .env file
 dotenv.config();
 
-
 const app = express();
-// const PORT = process.env.PORT || 5000;
 const PORT = process.env.PORT || 5000;
-// const apiKey = process.env.STEAM_API_KEY;
-// console.log(apiKey);
 const steam = new SteamAuth({
   realm: "https://ezskin.vercel.app/", // Replace with your actual frontend URL
   returnUrl: "https://test123-six-kappa.vercel.app/auth/steam/authenticate", // Your return route
   apiKey: process.env.STEAM_API_KEY,
 });
+
 app.use(cors());
+
 app.get('/', (req, res) => {
   res.send('products api running new deploy');
 });
+
 // Redirect to Steam login
 app.get("/auth/steam", async (req, res) => {
   try {
     const redirectUrl = await steam.getRedirectUrl();
+    console.log("Redirecting to Steam login at:", redirectUrl); // Log redirect URL
     return res.redirect(redirectUrl);
   } catch (error) {
     console.error("Error getting redirect URL:", error);
@@ -48,11 +35,10 @@ app.get("/auth/steam", async (req, res) => {
 // Steam authentication callback
 app.get("/auth/steam/authenticate", async (req, res) => {
   try {
+    console.log("Received authentication callback with query:", req.query); // Log query params
     const user = await steam.authenticate(req);
-    // Log the authenticated user data
     console.log("Authenticated user:", user);
 
-    // Handle user data from Steam API response
     const steamID64 = user._json.steamid;
     const username = user._json.personaname;
     const profile = user._json.profileurl;
@@ -63,9 +49,9 @@ app.get("/auth/steam/authenticate", async (req, res) => {
     };
 
     // Redirect to frontend with user info
-    res.redirect(
-      `https://ezskin.vercel.app/?page.tsx&steamID64=${steamID64}&username=${username}`
-    );
+    const redirectUrl = `https://ezskin.vercel.app/?page.tsx&steamID64=${steamID64}&username=${username}`;
+    console.log("Redirecting to frontend with user info:", redirectUrl); // Log redirect URL
+    res.redirect(redirectUrl);
   } catch (error) {
     console.error("Error authenticating with Steam:", error.message);
     res.status(500).json({ error: "Failed to authenticate with Steam" });
