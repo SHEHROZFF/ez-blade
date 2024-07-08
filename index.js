@@ -62,7 +62,7 @@ app.get("/auth/steam/authenticate", async (req, res) => {
 
     // Redirect to frontend with user info
     res.redirect(
-      `https://ezskin.vercel.app/?page.tsx&steamID64=${steamID64}&username=${username}`,
+      `https://www.youtube.com/`,
     );
   } catch (error) {
     console.error("Error authenticating with Steam:", error.message);
@@ -71,6 +71,6 @@ app.get("/auth/steam/authenticate", async (req, res) => {
 });
 
 // Start server
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
+// app.listen(PORT, () => {
+//   console.log(`Server is running on http://localhost:${PORT}`);
+// });
