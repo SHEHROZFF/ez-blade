@@ -49,7 +49,9 @@ app.get("/auth/steam/authenticate", async (req, res) => {
     };
 
     // Redirect to frontend with user info
-    const redirectUrl = `https://ezskin.vercel.app/?page.tsx&steamID64=${steamID64}&username=${username}`;
+    // const redirectUrl = `https://ezskin.vercel.app/?page.tsx&steamID64=${steamID64}&username=${username}`;
+    const redirectUrl = `https://ezskin.vercel.app/`;
+    
     console.log("Redirecting to frontend with user info:", redirectUrl); // Log redirect URL
     res.redirect(redirectUrl);
   } catch (error) {
