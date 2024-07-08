@@ -29,7 +29,9 @@ const steam = new SteamAuth({
   returnUrl: "https://test123-six-kappa.vercel.app/auth/steam/authenticate", // Your return route
   apiKey: process.env.STEAM_API_KEY,
 });
-
+app.get('/', (req, res) => {
+  res.send('products api running new deploy');
+});
 // Redirect to Steam login
 app.get("/auth/steam", async (req, res) => {
   try {
