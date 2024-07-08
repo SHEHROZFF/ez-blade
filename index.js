@@ -8,6 +8,7 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+
 const steam = new SteamAuth({
   realm: "https://ezskin.vercel.app/", // Replace with your actual frontend URL
   returnUrl: "https://test123-six-kappa.vercel.app/auth/steam/authenticate", // Your return route
@@ -49,9 +50,7 @@ app.get("/auth/steam/authenticate", async (req, res) => {
     };
 
     // Redirect to frontend with user info
-    // const redirectUrl = `https://ezskin.vercel.app/?page.tsx&steamID64=${steamID64}&username=${username}`;
-    const redirectUrl = `https://ezskin.vercel.app/`;
-    
+    const redirectUrl = `https://ezskin.vercel.app/?page.tsx&steamID64=${steamID64}&username=${username}`;
     console.log("Redirecting to frontend with user info:", redirectUrl); // Log redirect URL
     res.redirect(redirectUrl);
   } catch (error) {
