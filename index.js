@@ -67,7 +67,9 @@ app.get("/auth/steam/return",
     };
 
     // Redirect to frontend with user info
-    const redirectUrl = `https://ezskin.vercel.app/?page.tsx&steamID64=${steamID64}&username=${username}`;
+    const redirectUrl = `https://ezskin.vercel.app/?page.tsx&steamID64=${steamID64}&username=${username}&avatar=${JSON.stringify(avatar)}`;
+
+    // const redirectUrl = `https://ezskin.vercel.app/?page.tsx&steamID64=${steamID64}&username=${username}`;
     res.redirect(redirectUrl);
   }
 );
