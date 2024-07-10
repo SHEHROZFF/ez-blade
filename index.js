@@ -4,6 +4,7 @@ const SteamStrategy = require("passport-steam").Strategy;
 const session = require("express-session");
 const cors = require("cors");
 const dotenv = require("dotenv");
+const calculateTotalOrderAmount = require('./utils/amountconvert')
 
 dotenv.config();
 
@@ -70,14 +71,30 @@ app.get("/auth/steam/return",
     res.redirect(redirectUrl);
   }
 );
-// -------------------------------------stripe-----------------------------------------
-const calculateTotalOrderAmount = (items) => {
-  if (!items || !items.length) {
-    throw new Error("Invalid items array");
+//--------------------------------auth----------------------------------
+// Authentication middleware
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
   }
-  // Multiply by 100 to convert to cents if required by Stripe
-  return items[0].amount * 100;
-};
+  res.redirect('/');
+}
+//--------------------------------------steam trade url-------------------------------
+//  ensureAuthenticated,
+// Route to redirect user to Steam Trade Offer URL page
+app.get('/trade-url',ensureAuthenticated , (req, res) => {
+  const steamID64 = req.user.id;
+  const tradeUrl = `https://steamcommunity.com/profiles/${steamID64}/tradeoffers/privacy#trade_offer_access_url`;
+  res.redirect(tradeUrl);
+});
+// -------------------------------------stripe-----------------------------------------
+// const calculateTotalOrderAmount = (items) => {
+//   if (!items || !items.length) {
+//     throw new Error("Invalid items array");
+//   }
+//   // Multiply by 100 to convert to cents if required by Stripe
+//   return items[0].amount * 100;
+// };
 
 app.post("/create-payment-intent", async (req, res) => {
   try {
