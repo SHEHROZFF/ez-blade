@@ -134,6 +134,20 @@ app.post("/create-payment-intent", async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+// ------------------------------Logout middleware------------------------------------
+app.get('/logout', (req, res) => {
+  req.logout(err => {
+    if (err) {
+      return next(err);
+    }
+    req.session.destroy(err => {
+      if (err) {
+        return next(err);
+      }
+      res.redirect('https://ezskin.vercel.app'); // Redirect to your frontend after logout
+    });
+  });
+});
 // -------------------------------------------------------------------------------------------
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
