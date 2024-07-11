@@ -84,10 +84,14 @@ function ensureAuthenticated(req, res, next) {
 //--------------------------------------steam trade url-------------------------------
 //  ensureAuthenticated,
 // Route to redirect user to Steam Trade Offer URL page
-app.get('/trade-url', (req, res) => {
-  const steamID64 = req.user.id;
-  const tradeUrl = `https://steamcommunity.com/profiles/${steamID64}/tradeoffers/privacy#trade_offer_access_url`;
-  res.redirect(tradeUrl);
+app.get('/trade-url',ensureAuthenticated , (req, res) => {
+  try {
+    const steamID64 = req.user.id;
+    const tradeUrl = `https://steamcommunity.com/profiles/${steamID64}/tradeoffers/privacy#trade_offer_access_url`;
+    res.redirect(tradeUrl);
+  } catch (error) {
+    res.status(500).json({ error: error.message })
+  }
 });
 // -------------------------------------stripe-----------------------------------------
 // const calculateTotalOrderAmount = (items) => {
