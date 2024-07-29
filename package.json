@@ -22,6 +22,7 @@
     "passport": "^0.7.0",
     "passport-openid": "^0.4.0",
     "passport-steam": "^1.0.18",
-    "session": "^0.1.0"
+    "session": "^0.1.0",
+    "stripe": "^16.5.0"
   }
 }
