@@ -142,7 +142,7 @@ app.get('/auth/steam/return',
     };
 
     // Redirect to frontend with user info
-    const redirectUrl = `https://ezskin.vercel.app/?steamID64=${steamID64}&username=${username}&avatar=${JSON.stringify(avatar)}`;
+    const redirectUrl = `https://ezskin.vercel.app?steamID64=${steamID64}&username=${username}&avatar=${JSON.stringify(avatar)}`;
     res.redirect(redirectUrl);
   }
 );
@@ -171,7 +171,7 @@ app.get('/logout', (req, res) => {
       if (err) {
         return next(err);
       }
-      res.redirect('https://ezskin.vercel.app/'); // Redirect to your frontend after logout
+      res.redirect('https://ezskin.vercel.app'); // Redirect to your frontend after logout
     });
   });
 });
