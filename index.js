@@ -38,8 +38,8 @@ passport.deserializeUser((obj, done) => {
 });
 
 passport.use(new SteamStrategy({
-    returnURL: 'https://test123-six-kappa.vercel.app/auth/steam/return',
-    realm: 'https://test123-six-kappa.vercel.app/',
+    returnURL: 'http://localhost:5000/auth/steam/return',
+    realm: 'http://localhost:5000/',
     apiKey: process.env.STEAM_API_KEY
   },
   (identifier, profile, done) => {
@@ -142,7 +142,7 @@ app.get('/auth/steam/return',
     };
 
     // Redirect to frontend with user info
-    const redirectUrl = `https://ezskin.vercel.app?steamID64=${steamID64}&username=${username}&avatar=${JSON.stringify(avatar)}`;
+    const redirectUrl = `http://localhost:3000/?steamID64=${steamID64}&username=${username}&avatar=${JSON.stringify(avatar)}`;
     res.redirect(redirectUrl);
   }
 );
@@ -171,7 +171,7 @@ app.get('/logout', (req, res) => {
       if (err) {
         return next(err);
       }
-      res.redirect('https://ezskin.vercel.app'); // Redirect to your frontend after logout
+      res.redirect('http://localhost:3000/'); // Redirect to your frontend after logout
     });
   });
 });
