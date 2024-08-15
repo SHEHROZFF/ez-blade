@@ -58,9 +58,7 @@ passport.use(new SteamStrategy({
 
 // Function to get inventory
 
-app.get('/',()=>{
-  res.json("allisWELL")
-})
+
 // Inventory Route
 app.get('/api/inventory', async (req, res) => {
   try {
