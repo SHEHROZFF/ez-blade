@@ -19,7 +19,7 @@ const PORT = process.env.PORT || 5000;
 // Middleware
 app.use(express.json());
 app.use(cors({
-  origin: 'https://ezskin.vercel.app/',
+  origin: 'https://ezskin.vercel.app',
   methods: ['GET', 'POST'],
   credentials: true
 }));
